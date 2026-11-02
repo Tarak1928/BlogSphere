@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BlogSphere — stories, ideas and knowledge shared by a community of writers.">
+  <title>{% block title %}BlogSphere{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'blogs/css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <nav class="navbar container">
+    <a class="logo" href="{% url 'home' %}">Blog<span>Sphere</span></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="{% url 'home' %}">Home</a><a href="{% url 'home' %}#articles">Articles</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'create_post' %}">Write</a><a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'bookmarks' %}">Bookmarks</a><a href="{% url 'author_profile' user.username %}">My profile</a>
+        <form method="post" action="{% url 'logout' %}" class="nav-logout">{% csrf_token %}<button class="nav-button" type="submit">Log out</button></form>
+      {% else %}<a href="{% url 'login' %}">Log in</a><a class="nav-cta" href="{% url 'register' %}">Join BlogSphere</a>{% endif %}
+    </div>
+  </nav>
+</header>
+<main class="container main-content">
+  {% if messages %}<div class="messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer"><div class="container footer-inner"><a class="logo" href="{% url 'home' %}">Blog<span>Sphere</span></a><p>Ideas are better when shared.</p><p>© {% now "Y" %} BlogSphere</p></div></footer>
+</body></html>

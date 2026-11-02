@@ -1,0 +1,1 @@
+{% extends 'blogs/base.html' %}{% block title %}Edit profile{% endblock %}{% block content %}<section class="form-page narrow"><h1>Edit your profile</h1><form method="post" enctype="multipart/form-data" class="form-card">{% csrf_token %}{{ form.as_p }}<button class="button button-primary" type="submit">Save profile</button></form></section>{% endblock %}

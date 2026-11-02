@@ -1,0 +1,3 @@
+{% extends 'blogs/base.html' %}
+{% block title %}{{ page_heading }} | BlogSphere{% endblock %}
+{% block content %}<section class="form-page"><div class="form-intro"><p class="eyebrow">Your voice matters</p><h1>{{ page_heading }}</h1><p>Write something useful, interesting or inspiring. You can save a draft and publish it when you are ready.</p></div><form method="post" enctype="multipart/form-data" class="form-card">{% csrf_token %}{{ form.as_p }}<button class="button button-primary" type="submit">{{ button_label }}</button><a class="back-link" href="{% url 'dashboard' %}">Cancel</a></form></section>{% endblock %}
